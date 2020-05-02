@@ -1,0 +1,27 @@
+{
+  "variables": {
+    "base_ami_id": "must be provided",
+    "instance_type": "p2.xlarge"
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "source_ami": "{{user `base_ami_id`}}",
+    "instance_type": "{{user `instance_type`}}",
+    "ssh_username": "ubuntu",    
+    "tags": {
+      "OS_Version": "Ubuntu"      
+    },    
+    "ami_name": "jupyter-notebook-workstation",
+    "force_deregister": true,
+    "ami_description": "created through env0 template"
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "inline": [
+      "conda update conda --yes",
+      "conda install --yes -c pytorch -c fastai fastai pytorch",
+      "sudo apt-get update",
+      "sudo apt-get install -yq fail2ban"
+    ]
+  }]
+}

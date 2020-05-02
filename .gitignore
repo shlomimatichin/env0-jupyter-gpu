@@ -1,0 +1,6 @@
+*.swp
+*.zip
+.terraform
+packer
+jq
+terraform.tfstate*
